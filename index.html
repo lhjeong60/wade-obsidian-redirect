@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>여는 중…</title>
 <meta name="robots" content="noindex">
+<style>
+  body { font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center;
+         height: 100vh; margin: 0; color: #666; text-align: center; padding: 0 24px; }
+</style>
 </head>
 <body>
 <p id="msg">여는 중…</p>
@@ -11,10 +15,17 @@
   // 경로는 URL fragment(#)로만 받는다 — fragment는 브라우저가 서버로 절대 전송하지 않으므로
   // GitHub Pages 접근 로그에 실제 목적지(볼트 경로/파일명)가 남지 않는다.
   var target = decodeURIComponent(location.hash.slice(1));
+  var msg = document.getElementById('msg');
   if (target && target.indexOf('obsidian://') === 0) {
     location.href = target;
+    // 사용자가 직접 탭해서 연 탭이라 window.close()가 대부분 브라우저(특히 iOS Safari/텔레그램
+    // 인앱 브라우저)에서 보안상 막혀 있다 — 시도는 해보되 안 먹혀도 정상이라 안내 문구를 같이 둔다.
+    setTimeout(function () {
+      window.close();
+      msg.textContent = '옵시디언이 열렸으면 이 창은 닫으셔도 됩니다.';
+    }, 800);
   } else {
-    document.getElementById('msg').textContent = '유효한 링크가 아닙니다.';
+    msg.textContent = '유효한 링크가 아닙니다.';
   }
 </script>
 </body>
