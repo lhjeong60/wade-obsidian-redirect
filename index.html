@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>여는 중…</title>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<p id="msg">여는 중…</p>
+<script>
+  // 경로는 URL fragment(#)로만 받는다 — fragment는 브라우저가 서버로 절대 전송하지 않으므로
+  // GitHub Pages 접근 로그에 실제 목적지(볼트 경로/파일명)가 남지 않는다.
+  var target = decodeURIComponent(location.hash.slice(1));
+  if (target && target.indexOf('obsidian://') === 0) {
+    location.href = target;
+  } else {
+    document.getElementById('msg').textContent = '유효한 링크가 아닙니다.';
+  }
+</script>
+</body>
+</html>
